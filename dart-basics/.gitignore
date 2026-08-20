@@ -1,0 +1,15 @@
+# --- Dart: build artifacts ---------------------------------
+.dart_tool/
+build/
+
+# --- Dart Editor / IDE files --------------------------------------
+.idea/
+
+# --- OS junk -------------------------------------------------------
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# --- Editor swap / backup files -------------------------------------
+*.swp
+*~
