@@ -1,15 +1,17 @@
 #  Dart Basics
 
-> **Topics:** Hello · Variables · Operators · Control Flow — explained line by
-> line, with a comment on every single operation so anyone can understand.
+> **Topics:** Hello · Variables · Operators · Control Flow · User Input &
+> Grading — explained line by line, with a comment on every single
+> operation so anyone can understand.
 
 A set of fully-commented **Dart** scripts that teach the core language
 fundamentals through real, runnable examples.
 
-| File                    | Topics it teaches                             |
-| ----------------------- | --------------------------------------------- |
-| `dart_basics.dart`      | Hello, Variables, Nullability                 |
-| `Control_Flow.dart`     | Operators, if/else, switch, ternary, loops    |
+| File                                  | Topics it teaches                                    |
+| ------------------------------------- | ---------------------------------------------------- |
+| `dart_basics.dart`                    | Hello, Variables, Nullability                        |
+| `Control_Flow.dart`                   | Operators, if/else, switch, ternary, loops           |
+| `Student_Information_Grading_System.dart` | User input (`dart:io`), interpolation, `??`, grading system |
 
 ---
 
@@ -39,10 +41,17 @@ dart run dart_basics.dart
 
 # Run the Operators / Control Flow tour:
 dart run Control_Flow.dart
+
+# Run the interactive Student Information & Grading System:
+dart run Student_Information_Grading_System.dart
 ```
 
-> 💡 No local SDK? Just paste the file into the web playground:
-> **https://dartpad.dev** and press **Run**.
+> 🔶 `Student_Information_Grading_System.dart` is **interactive** — it asks for
+> student details and exam marks one by one, so run it from a terminal
+> (it uses `dart:io`, which the web-based DartPad does not support).
+>
+> 💡 No local SDK? Just paste a *non-interactive* file into the web
+> playground: **https://dartpad.dev** and press **Run**.
 
 ---
 
@@ -137,6 +146,56 @@ while (i < 3) i++;
 for (int k = 0; k < 3; k++) print(k);
 for (var name in ['Nahid', 'Sabbir']) print(name);
 // break  -> stop early,  continue -> skip a round
+```
+
+---
+
+## 📚 What Student_Information_Grading_System.dart teaches
+
+| Section             | Concept covered                                                  |
+| ------------------- | ---------------------------------------------------------------- |
+| **User Input**      | `stdout.write()` prompts + `stdin.readLineSync()` + `int.parse()` |
+| **Interpolation**   | Printing a neat report card with `$var` and `${expression}`       |
+| **Nullability**     | `String?` phone number + `?? 'Not Provided'` fallback             |
+| **Grading**         | Percentage calculation + `if / else if / else` grade + pass/fail |
+
+---
+
+## 🧠 Quick reference (Student_Information_Grading_System.dart)
+
+### Reading input
+
+```dart
+// dart:io is required for terminal input.
+import 'dart:io';
+
+stdout.write('Student Name: ');                  // no newline -> prompt stays on one line
+String name = stdin.readLineSync()?.trim() ?? ''; // read a line of text, trim spaces
+String ageLine = stdin.readLineSync()?.trim() ?? '';
+int    age    = int.parse(ageLine);              // convert text into a number
+```
+
+### Optional phone number (nullable + ??)
+
+```dart
+String? phone = stdin.readLineSync()?.trim();     // may be null if skipped
+print('Phone   : ${phone ?? 'Not Provided'}');    // ?? fallback when null
+```
+
+### Grade with if / else if / else
+
+```dart
+double percentage = (obtainedMarks / totalMarks) * 100;
+
+if (percentage >= 80)      grade = 'A+';
+else if (percentage >= 70) grade = 'A';
+else if (percentage >= 60) grade = 'A-';
+else if (percentage >= 50) grade = 'B';
+else if (percentage >= 40) grade = 'C';
+else if (percentage >= 33) grade = 'D';
+else                       grade = 'F';
+
+String result = (percentage >= 33) ? 'Passed' : 'Failed';
 ```
 
 ---
