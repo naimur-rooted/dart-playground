@@ -8,7 +8,7 @@ fundamentals through real, runnable examples.
 
 ---
 
-## 🚀 How to run
+##  How to run
 
 ### 1. Install the Dart SDK (only once)
 
@@ -32,7 +32,7 @@ dart create dart-basics
 dart run dart_basics.dart
 ```
 
-> 💡 No local SDK? Just paste the file into the web playground:
+>  No local SDK? Just paste the file into the web playground:
 > **https://dartpad.dev** and press **Run**.
 
 ---
@@ -49,7 +49,7 @@ dart run dart_basics.dart
 
 ---
 
-## 🧠 Quick reference
+##  Quick reference
 
 ### Hello
 ```dart
@@ -88,7 +88,7 @@ String sure = maybeName!;        // '!' forces a nullable as not-null (careful!)
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Found a bug or a better example? Open an **issue** or send a **pull request** —
 this is a learning repo, so contributions are always welcome.
