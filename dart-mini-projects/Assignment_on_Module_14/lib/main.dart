@@ -48,20 +48,29 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
   }
 
   /// Helper to build a labeled detail row inside the dialog.
-  Widget _buildDetailRow(String label, String value) {
+  Widget _buildDetailRow(IconData icon, String label, String value) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 8.h),
-      child: Column(
+      padding: EdgeInsets.only(bottom: 12.h),
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: TextStyle(fontSize: 12.sp, color: Colors.grey[600]),
-          ),
-          SizedBox(height: 2.h),
-          Text(
-            value,
-            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
+          Icon(icon, color: Colors.indigo, size: 20.sp),
+          SizedBox(width: 12.w),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label,
+                  style: TextStyle(fontSize: 12.sp, color: Colors.grey[600]),
+                ),
+                SizedBox(height: 2.h),
+                Text(
+                  value,
+                  style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -104,9 +113,9 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                 ],
               ),
               SizedBox(height: 16.h),
-              _buildDetailRow('Name', _studentName),
-              _buildDetailRow('ID', _studentId),
-              _buildDetailRow('Department', _studentDept),
+              _buildDetailRow(Icons.person, 'Name', _studentName),
+              _buildDetailRow(Icons.badge, 'ID', _studentId),
+              _buildDetailRow(Icons.school, 'Department', _studentDept),
               SizedBox(height: 20.h),
               SizedBox(
                 width: double.infinity,
