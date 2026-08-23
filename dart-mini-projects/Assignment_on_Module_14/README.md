@@ -4,6 +4,12 @@ A simple, clean Flutter app that displays a **Student Profile Card** using
 responsive design, a shimmer loading effect, a custom dialog, and a custom
 SnackBar.
 
+![Student Profile App Screenshot](docs/Screenshot_24-8-2026_14028_localhost.jpeg)
+*The shimmer loading placeholder displayed for the first 3 seconds after launch.*
+
+![Student Profile Card Screenshot](docs/Screenshot_24-8-2026_1404_localhost.jpeg)
+*The profile card screen showing the student avatar with "New" badge, student information, and action buttons (View Details & Mark Present).*
+
 ## Features
 
 | Feature               | Package / Widget         | Details                                              |
