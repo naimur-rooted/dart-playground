@@ -34,6 +34,7 @@ class ProfileData {
     required this.bio,
     required this.email,
     required this.phone,
+    required this.profileImage,
     required this.interests,
   });
 
@@ -42,36 +43,56 @@ class ProfileData {
   final String bio;
   final String email;
   final String phone;
+  final String profileImage;
   final List<InterestItem> interests;
 }
 
-/// Represents a single interest with an icon shown next to its label.
+/// Represents a single interest with an icon or image asset shown next to
+/// its label.
 class InterestItem {
-  const InterestItem({required this.icon, required this.label});
+  const InterestItem({
+    required this.icon,
+    required this.label,
+    this.imageAsset,
+  });
 
   final IconData icon;
   final String label;
+
+  /// Optional asset path for an image displayed instead of [icon].
+  final String? imageAsset;
 }
 
 /// The single profile information used to populate every widget. The values
 /// are curated from the developer's file history (Flutter assignments, user
-/// folder name, etc.).
+/// folder name, and assignment documentation images).
 const kProfile = ProfileData(
-  name: 'Nahid',
+  name: 'Naimur Rahman Nahid',
   profession: 'Flutter Developer',
   bio:
       'Passionate Flutter & Dart developer building cross-platform mobile '
       'applications. Currently sharpening skills in state management, '
       'clean architecture, and responsive UI design through hands-on '
       'projects and module assignments.',
-  email: 'nahid.dev@example.com',
-  phone: '+1 (555) 123-4567',
+  email: 'naimur.rooted@gmail.com',
+  phone: '01863563717',
+  profileImage: 'doc/Nahid (2).png',
   interests: [
     InterestItem(icon: Icons.flutter_dash, label: 'Flutter'),
     InterestItem(icon: Icons.code, label: 'Dart'),
     InterestItem(icon: Icons.phone_iphone, label: 'Mobile Dev'),
     InterestItem(icon: Icons.design_services, label: 'UI/UX Design'),
     InterestItem(icon: Icons.architecture, label: 'Clean Architecture'),
+    InterestItem(
+      icon: Icons.gamepad,
+      label: 'Open world game exploration',
+      imageAsset: 'doc/Openworld.jpg',
+    ),
+    InterestItem(
+      icon: Icons.eco,
+      label: 'Gardening',
+      imageAsset: 'doc/organic-gardening.jpg',
+    ),
   ],
 );
 
@@ -133,51 +154,51 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           content: SizedBox(
             width: double.maxFinite,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _detailRow(Icons.badge_outlined, 'Name', kProfile.name),
-                _detailRow(Icons.work, 'Profession', kProfile.profession),
-                _detailRow(Icons.email, 'Email', kProfile.email),
-                _detailRow(Icons.phone, 'Phone', kProfile.phone),
-                const SizedBox(height: 12),
-                const Text(
-                  'Bio',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 4),
-                Text(kProfile.bio),
-                const SizedBox(height: 12),
-                const Text(
-                  'Interests',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 4),
-                Wrap(
-                  spacing: 6,
-                  runSpacing: 6,
-                  children:
-                      [
-                            'Flutter',
-                            'Dart',
-                            'Mobile Dev',
-                            'UI/UX Design',
-                            'Clean Architecture',
-                          ]
-                          .map(
-                            (label) => Chip(
-                              avatar: CircleAvatar(
-                                backgroundColor: Colors.indigo.shade100,
-                                child: const Icon(Icons.star, size: 14),
-                              ),
-                              label: Text(label),
-                              visualDensity: VisualDensity.compact,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _detailRow(Icons.badge_outlined, 'Name', kProfile.name),
+                  _detailRow(Icons.work, 'Profession', kProfile.profession),
+                  _detailRow(Icons.email, 'Email', kProfile.email),
+                  _detailRow(Icons.phone, 'Phone', kProfile.phone),
+                  const SizedBox(height: 12),
+                  const Text(
+                    'Bio',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(kProfile.bio),
+                  const SizedBox(height: 12),
+                  const Text(
+                    'Interests',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 4),
+                  Wrap(
+                    spacing: 6,
+                    runSpacing: 6,
+                    children: kProfile.interests
+                        .map(
+                          (item) => Chip(
+                            avatar: CircleAvatar(
+                              backgroundColor: Colors.indigo.shade100,
+                              backgroundImage: item.imageAsset != null
+                                  ? AssetImage(item.imageAsset!)
+                                  : null,
+                              child: item.imageAsset != null
+                                  ? null
+                                  : Icon(item.icon, size: 14),
                             ),
-                          )
-                          .toList(),
-                ),
-              ],
+                            label: Text(item.label),
+                            visualDensity: VisualDensity.compact,
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ],
+              ),
             ),
           ),
           actions: [
@@ -232,18 +253,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // ---- Profile picture (CircleAvatar) ----
+            // ---- Profile picture (CircleAvatar with image asset) ----
             CircleAvatar(
               radius: 56,
               backgroundColor: Colors.indigo.shade100,
-              child: const CircleAvatar(
+              child: CircleAvatar(
                 radius: 48,
                 backgroundColor: Colors.indigo,
-                child: Icon(Icons.person, size: 56, color: Colors.white),
+                backgroundImage: AssetImage(kProfile.profileImage),
+                child: const Icon(
+                  Icons.person,
+                  size: 32,
+                  color: Colors.white70,
+                ),
               ),
             ),
             const SizedBox(height: 16),
-
             // ---- Name & profession ----
             Text(
               kProfile.name,
@@ -260,7 +285,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ).textTheme.titleMedium?.copyWith(color: Colors.indigo.shade700),
             ),
             const SizedBox(height: 16),
-
             // ---- Short bio ----
             Text(
               kProfile.bio,
@@ -268,17 +292,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 20),
-
             // ---- Email & phone ----
             _infoRow(Icons.email, kProfile.email),
             const SizedBox(height: 10),
             _infoRow(Icons.phone, kProfile.phone),
             const SizedBox(height: 20),
-
             // ---- Interests ----
             _buildInterests(),
             const SizedBox(height: 24),
-
             // ---- Action buttons ----
             Row(
               children: [
@@ -335,7 +356,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  /// Renders the interests as a wrap of chips with icons.
+  /// Renders the interests as a wrap of chips with icons or image assets.
   Widget _buildInterests() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -354,7 +375,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 (item) => Chip(
                   avatar: CircleAvatar(
                     backgroundColor: Colors.indigo.shade100,
-                    child: Icon(item.icon, color: Colors.indigo, size: 16),
+                    backgroundImage: item.imageAsset != null
+                        ? AssetImage(item.imageAsset!)
+                        : null,
+                    child: item.imageAsset != null
+                        ? null
+                        : Icon(item.icon, color: Colors.indigo, size: 16),
                   ),
                   label: Text(item.label),
                   backgroundColor: Colors.indigo.shade50,

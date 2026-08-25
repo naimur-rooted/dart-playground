@@ -33,9 +33,12 @@ The profile information is curated from the developer's file history in this
 workspace — the Windows user folder name, the Flutter/Dart assignments, and the
 Module 14 *Student Profile Card* exercise — resulting in:
 
-- **Name:** Nahid
+- **Name:** Naimur Rahman Nahid
 - **Profession:** Flutter Developer
-- **Interests:** Flutter, Dart, Mobile Dev, UI/UX Design, Clean Architecture
+- **Email:** naimur.rooted@gmail.com
+- **Phone:** 01863563717
+- **Interests:** Flutter, Dart, Mobile Dev, UI/UX Design, Clean Architecture, Open world game exploration, Gardening
+- **Profile picture & interest images:** stored in `doc/` (sourced from assignment documentation)
 
 To change these values, edit the `kProfile` constant in `lib/main.dart`.
 
