@@ -1,8 +1,8 @@
 #  Dart Basics
 
-> **Topics:** Hello · Variables · Operators · Control Flow · User Input &
-> Grading — explained line by line, with a comment on every single
-> operation so anyone can understand.
+> **Topics:** Hello · Variables · Operators · Control Flow · Switch Menus ·
+> Unit Conversions · User Input & Grading — explained line by line, with a
+> comment on every single operation so anyone can understand.
 
 A set of fully-commented **Dart** scripts that teach the core language
 fundamentals through real, runnable examples.
@@ -11,6 +11,7 @@ fundamentals through real, runnable examples.
 | ------------------------------------- | ---------------------------------------------------- |
 | `dart_basics.dart`                    | Hello, Variables, Nullability                        |
 | `Control_Flow.dart`                   | Operators, if/else, switch, ternary, loops           |
+| `Smart_Temperature_Converter.dart`    | Interactive menus, switch/case, unit conversions, `dart:io` input/output |
 | `Student_Information_Grading_System.dart` | User input (`dart:io`), interpolation, `??`, grading system |
 
 ---
@@ -42,12 +43,19 @@ dart run dart_basics.dart
 # Run the Operators / Control Flow tour:
 dart run Control_Flow.dart
 
+# Run the interactive Smart Temperature Converter:
+dart run Smart_Temperature_Converter.dart
+
 # Run the interactive Student Information & Grading System:
 dart run Student_Information_Grading_System.dart
 ```
 
 > 🔶 `Student_Information_Grading_System.dart` is **interactive** — it asks for
 > student details and exam marks one by one, so run it from a terminal
+> (it uses `dart:io`, which the web-based DartPad does not support).
+>
+> 🔶 `Smart_Temperature_Converter.dart` is also **interactive** — it presents a
+> menu and reads temperatures from the terminal, so run it from a terminal
 > (it uses `dart:io`, which the web-based DartPad does not support).
 >
 > 💡 No local SDK? Just paste a *non-interactive* file into the web
@@ -146,6 +154,66 @@ while (i < 3) i++;
 for (int k = 0; k < 3; k++) print(k);
 for (var name in ['Nahid', 'Sabbir']) print(name);
 // break  -> stop early,  continue -> skip a round
+```
+
+---
+
+## 📚 What Smart_Temperature_Converter.dart teaches
+
+| Section                | Concept covered                                                |
+| ---------------------- | -------------------------------------------------------------- |
+| **Interactive menu**   | Printing a menu and reading a numeric choice with `switch`/`case` |
+| **User Input**         | `stdin.readLineSync()` + `int.parse()` / `double.parse()`        |
+| **Unit Conversion**    | Applying math formulas (Celsius ↔ Fahrenheit ↔ Kelvin)         |
+| **String Interpolation** | `$variable` and `${expression}` in output strings             |
+| **Control Flow**       | `switch` with `break`, `default`, and `return` cases            |
+
+## 🧠 Quick reference (Smart_Temperature_Converter.dart)
+
+### Temperature conversion formulas
+
+```dart
+// Celsius -> Fahrenheit:  °F = (°C × 9/5) + 32
+double fahrenheit = (celsius * 9 / 5) + 32;
+
+// Fahrenheit -> Celsius:  °C = (°F − 32) × 5/9
+double celsius = (fahrenheit - 32) * 5 / 9;
+
+// Celsius -> Kelvin:  K = °C + 273.15
+double kelvin = celsius + 273.15;
+
+// Kelvin -> Celsius:  °C = K − 273.15
+double celsius = kelvin - 273.15;
+```
+
+### Interactive switch menu
+
+```dart
+import 'dart:io';
+
+print('1. Celsius to Fahrenheit');
+print('2. Fahrenheit to Celsius');
+print('3. Celsius to Kelvin');
+print('4. Kelvin to Celsius');
+print('5. Fahrenheit to Kelvin');
+print('6. Kelvin to Fahrenheit');
+print('7. Exit');
+
+int choice = int.parse(stdin.readLineSync()!);
+
+switch (choice) {
+  case 1:
+    print('Enter temperature in Celsius:');
+    double celsius = double.parse(stdin.readLineSync()!);
+    double fahrenheit = (celsius * 9 / 5) + 32;
+    print('$celsius°C is equal to $fahrenheit°F');
+    break;
+  case 7:
+    print('Exiting the program. Goodbye!');
+    return;  // exits main() entirely
+  default:
+    print('Invalid option. Please select a number between 1 and 7.');
+}
 ```
 
 ---
